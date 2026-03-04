@@ -12,8 +12,8 @@
             {
               "group": "Get Started",
               "pages": [
-                "get-started/introduction",
-                "get-started/cli"
+                "introduction",
+                "cli"
               ]
             },
             {
