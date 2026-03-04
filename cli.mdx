@@ -1,0 +1,103 @@
+---
+title: Test your docs
+icon: book
+---
+
+# See if your docs are out of date
+
+Wondering how outdated your docs are? Run **Devscribe** against your repo in 30 seconds — no signup, no install.
+
+Devscribe scans your codebase and tells you exactly which docs are stale, what's missing, and what's referencing code that no longer exists.
+
+## Run It
+
+```bash
+npx devscribe-cli analyze /path/to/your/repo
+```
+
+That's it. No install required — `npx` handles everything. You'll get a color-coded terminal report and a `devscribe-report.html` file you can open in your browser.
+
+---
+
+## What You Get
+
+A staleness score (0–100) for every doc file, ranked by severity:
+
+| Priority | What it means | |----------|--------------| | 🔴 Critical | Doc is significantly out of date — likely misleading users | | 🟡 High | Meaningful drift between code and docs | | 🔵 Medium | Some staleness, worth reviewing | | 🟢 Low | Docs are reasonably current |
+
+Plus a **coverage map** showing which code files have no documentation at all.
+
+---
+
+## Free vs. Full Report
+
+**Free (no API key needed)**
+
+Runs four static analysis checks:
+
+- **Timestamp gap** — how many days since the code was updated vs. the doc
+- **Commit graph** — how many code commits since the doc was last touched
+- **Symbol coverage** — exported functions and classes missing from docs
+- **Dead references** — things your docs mention that no longer exist in the code
+
+```bash
+npx devscribe-cli analyze /path/to/your/repo
+```
+
+**Full report (with AI semantic diff)**
+
+Adds an AI layer that reads your code and docs together and flags specific issues — renamed functions, changed behavior, wrong examples, outdated API signatures.
+
+```bash
+npx devscribe-cli analyze /path/to/your/repo --llm-key YOUR_ANTHROPIC_KEY
+```
+
+---
+
+## Options
+
+```text
+--llm-key <key>      Anthropic API key for AI semantic diff
+--top <n>            Show top N most stale files (default: 20)
+--html <path>        Custom path for HTML report
+--no-html-save       Skip saving HTML report
+-o, --output <fmt>   Terminal output format: table | json | markdown
+```
+
+---
+
+## Requirements
+
+- Node.js 18 or higher
+- A local git repository (DevScribe reads git history for accurate results)
+
+---
+
+## Example Output
+
+```text
+⚡ Devscribe — Documentation Health Analyzer
+
+✔ Analysis complete!
+
+📊 Repository Summary
+  Doc files:   24
+  Code files:  87
+  Coverage:    [██████░░░░] 61%
+
+📋 Stale Documentation
+
+  🔴 critical   docs/api/authentication.md      Score: 88   142 days behind   23 commits
+  🟡 high        docs/guides/deployment.md       Score: 62    67 days behind    9 commits
+  🔵 medium      docs/contributing.md            Score: 41    30 days behind    4 commits
+
+📄 HTML report saved: devscribe-report.html
+```
+
+---
+
+## Want This To Run Automatically?
+
+DevScribe CLI is the free self-serve tool. If you want documentation that **stays current automatically** — updating itself with every pull request, tracking coverage over time, and alerting your team when docs fall behind — that's what DevScribe the product does.
+
+[**Get early access →**](https://devscribe.dev)
